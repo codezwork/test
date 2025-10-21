@@ -16,22 +16,6 @@
     {
       "src": "*.ico",
       "use": "@vercel/static"
-    },
-    {
-      "src": "*.jpg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.jpeg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -44,6 +28,14 @@
       "headers": {
         "Cache-Control": "public, max-age=86400"
       }
+    },
+    {
+      "src": "/success.html",
+      "dest": "/success.html"
+    },
+    {
+      "src": "/error.html", 
+      "dest": "/error.html"
     },
     {
       "src": "/(.*)",
