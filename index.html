@@ -787,7 +787,7 @@
           alert('Error verifying payment. Please contact support with your order ID: ' + response.razorpay_order_id);
         });
     }
-
+    
     function showSuccessMessage(response, downloadLink, productName) {
       document.getElementById('order-id').textContent = response.razorpay_order_id;
       document.getElementById('payment-id').textContent = response.razorpay_payment_id;
