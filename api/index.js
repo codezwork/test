@@ -127,13 +127,13 @@ module.exports = async (req, res) => {
     }
 
     // POST → /api/verify-payment
-    // POST → /api/verify-payment
     if (url === '/api/verify-payment' && method === 'POST') {
-      // Razorpay may send form data (mobile redirect) or JSON (desktop AJAX)
       let razorpay_order_id, razorpay_payment_id, razorpay_signature;
+      let isRedirect = false;
     
+      // Check if it's a form submission (mobile redirect)
       if (req.headers['content-type']?.includes('application/x-www-form-urlencoded')) {
-        // Parse form data
+        isRedirect = true;
         let body = '';
         await new Promise((resolve) => {
           req.on('data', (chunk) => (body += chunk.toString()));
@@ -144,29 +144,50 @@ module.exports = async (req, res) => {
         razorpay_payment_id = params.get('razorpay_payment_id');
         razorpay_signature = params.get('razorpay_signature');
       } else {
-        // Parse JSON body
+        // JSON body (desktop AJAX)
         ({ razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body || {});
       }
     
       const secret = process.env.RAZORPAY_KEY_SECRET;
       const isValid = verifySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature, secret);
     
-      if (!isValid) return res.status(400).send('Verification failed');
+      if (!isValid) {
+        if (isRedirect) {
+          res.writeHead(302, { Location: '/error.html' });
+          return res.end();
+        }
+        return res.status(400).json({ status: 'error', message: 'Verification failed' });
+      }
     
       const order = ordersData.find(o => o.order_id === razorpay_order_id);
-      if (!order) return res.status(404).send('Order not found');
+      if (!order) {
+        if (isRedirect) {
+          res.writeHead(302, { Location: '/error.html' });
+          return res.end();
+        }
+        return res.status(404).json({ status: 'error', message: 'Order not found' });
+      }
     
       order.status = 'paid';
       order.payment_id = razorpay_payment_id;
       order.paid_at = new Date().toISOString();
     
-      // ✅ Always redirect to success.html with query params
-      const redirectUrl = `/success.html?order_id=${encodeURIComponent(razorpay_order_id)}&payment_id=${encodeURIComponent(
-        razorpay_payment_id
-      )}&download_link=${encodeURIComponent(order.download_link)}&product_name=${encodeURIComponent(order.product_name)}`;
+      // If it's a redirect (mobile), redirect to success page
+      if (isRedirect) {
+        const redirectUrl = `/success.html?order_id=${encodeURIComponent(razorpay_order_id)}&payment_id=${encodeURIComponent(
+          razorpay_payment_id
+        )}&download_link=${encodeURIComponent(order.download_link)}&product_name=${encodeURIComponent(order.product_name)}`;
+        
+        res.writeHead(302, { Location: redirectUrl });
+        return res.end();
+      }
     
-      res.writeHead(302, { Location: redirectUrl });
-      return res.end();
+      // If it's AJAX (desktop), return JSON response
+      return res.status(200).json({
+        status: 'ok',
+        download_link: order.download_link,
+        product_name: order.product_name
+      });
     }
 
     
