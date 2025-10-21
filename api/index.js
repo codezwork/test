@@ -16,7 +16,7 @@ const coursesDictionary = {
     image: 'https://github.com/glitchingthroughmatrix/image-hosting/blob/main/Break%20the%20matrix%20thumbnail%20on%20website.png?raw=true',
     description:
       'Complete access to all premium courses including financial strategies, investment techniques, and business development resources.',
-    readMoreLink: 'google.com',
+    readMoreLink: 'https://glitch.mambaclub.site/view-details-pages/glitchthematrix-thevault',
   },
   andrew_tate: {
     name: 'Andrew Tate Courses',
@@ -25,7 +25,7 @@ const coursesDictionary = {
     image: 'https://github.com/glitchingthroughmatrix/image-hosting/blob/main/Andrew%20tate%20all%20course.png?raw=true',
     description:
       "Learn from Andrew Tate's proven strategies for wealth creation, business mastery, and personal development.",
-    readMoreLink: 'google.com',
+    readMoreLink: 'https://glitch.mambaclub.site/view-details-pages/andrew-tate-courses',
   },
   luke_belmar: {
     name: 'Luke Belmar Courses',
@@ -34,7 +34,7 @@ const coursesDictionary = {
     image: 'https://github.com/glitchingthroughmatrix/image-hosting/blob/main/Luke%20Belmar.png?raw=true',
     description:
       "Master digital entrepreneurship and online business strategies with Luke Belmar's cutting-edge methodologies.",
-    readMoreLink: 'google.com',
+    readMoreLink: 'https://glitch.mambaclub.site/view-details-pages/luke-belmar-courses',
   },
   iman_gadzhi: {
     name: 'Iman Gadzhi Courses',
@@ -43,7 +43,7 @@ const coursesDictionary = {
     image: 'https://github.com/glitchingthroughmatrix/image-hosting/blob/main/Iman%20Gadzhi.png?raw=true',
     description:
       "Build successful agencies and scale your business using Iman Gadzhi's proven marketing frameworks.",
-    readMoreLink: 'google.com',
+    readMoreLink: 'https://glitch.mambaclub.site/view-details-pages/iman-gadzhi-courses',
   },
 };
 
