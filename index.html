@@ -743,8 +743,11 @@
           theme: {
             color: '#012f1d'
           },
-          callback_url: '/api/verify-payment',
-          redirect: true,
+          // Remove callback_url and use handler instead
+          handler: function(response) {
+            // This handles desktop payments
+            verifyPayment(response);
+          },
           modal: {
             ondismiss: function() {
               console.log('Checkout form closed by user');
