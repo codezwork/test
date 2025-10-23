@@ -20,12 +20,12 @@
   ],
   "routes": [
     {
-      "src": "/success.html",
+      "src": "/success.html(.*)",
       "methods": ["GET", "POST"],
       "dest": "/success.html"
     },
     {
-      "src": "/error.html",
+      "src": "/error.html(.*)",
       "methods": ["GET", "POST"],
       "dest": "/error.html"
     },
