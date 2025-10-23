@@ -20,6 +20,16 @@
   ],
   "routes": [
     {
+      "src": "/success.html",
+      "methods": ["GET", "POST"],
+      "dest": "/success.html"
+    },
+    {
+      "src": "/error.html",
+      "methods": ["GET", "POST"],
+      "dest": "/error.html"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/index.js"
     },
@@ -28,14 +38,6 @@
       "headers": {
         "Cache-Control": "public, max-age=86400"
       }
-    },
-    {
-      "src": "/success.html",
-      "dest": "/success.html"
-    },
-    {
-      "src": "/error.html", 
-      "dest": "/error.html"
     },
     {
       "src": "/(.*)",
